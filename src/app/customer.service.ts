@@ -62,7 +62,7 @@ export class CustomerService {
     const currentCustomer = this.customers.find(customer => customer.id === id);
 
     if (!currentCustomer) {
-      return throwError(() => new Error('Khong tim thay khach hang'));
+      return throwError(() => new Error('Không tìm thấy khách hàng'));
     }
 
     const updatedCustomer = { id, ...payload };

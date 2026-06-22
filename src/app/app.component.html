@@ -1,18 +1,18 @@
 <main class="app-shell">
   <section class="page-header">
     <div>
-      <p class="eyebrow">Bai tap Angular</p>
-      <h1>Quan ly khach hang</h1>
+      <p class="eyebrow">Bài tập Angular</p>
+      <h1>Quản lý khách hàng</h1>
     </div>
 
     <div class="header-actions">
       <button nz-button nzType="default" (click)="reloadCustomers()" [nzLoading]="loading">
         <span nz-icon nzType="reload"></span>
-        Tai lai
+        Tải lại
       </button>
       <button nz-button nzType="primary" (click)="openCreateModal()">
         <span nz-icon nzType="plus"></span>
-        Them khach hang
+        Thêm khách hàng
       </button>
     </div>
   </section>
@@ -20,8 +20,8 @@
   <section class="list-panel">
     <div class="panel-toolbar">
       <div>
-        <h2>Danh sach khach hang</h2>
-        <p>{{ total }} khach hang trong danh sach</p>
+        <h2>Danh sách khách hàng</h2>
+        <p>{{ total }} khách hàng trong danh sách</p>
       </div>
       <nz-tag nzColor="processing">Trang {{ pageIndex }}</nz-tag>
     </div>
@@ -42,11 +42,11 @@
       <thead>
         <tr>
           <th nzWidth="76px">ID</th>
-          <th nzWidth="150px">Ma khach hang</th>
-          <th>Ten khach hang</th>
-          <th nzWidth="96px">Tuoi</th>
-          <th>Dia chi</th>
-          <th nzWidth="160px" nzAlign="center">Thao tac</th>
+          <th nzWidth="150px">Mã khách hàng</th>
+          <th>Tên khách hàng</th>
+          <th nzWidth="96px">Tuổi</th>
+          <th>Địa chỉ</th>
+          <th nzWidth="160px" nzAlign="center">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -63,7 +63,7 @@
                 nzType="text"
                 nzShape="circle"
                 nz-tooltip
-                nzTooltipTitle="Xem chi tiet"
+                nzTooltipTitle="Xem chi tiết"
                 (click)="openDetailModal(customer)"
               >
                 <span nz-icon nzType="eye"></span>
@@ -73,7 +73,7 @@
                 nzType="text"
                 nzShape="circle"
                 nz-tooltip
-                nzTooltipTitle="Sua"
+                nzTooltipTitle="Sửa"
                 (click)="openEditModal(customer)"
               >
                 <span nz-icon nzType="edit"></span>
@@ -84,11 +84,11 @@
                 nzDanger
                 nzShape="circle"
                 nz-popconfirm
-                nzPopconfirmTitle="Ban co chac muon xoa khach hang nay?"
-                nzOkText="Xoa"
-                nzCancelText="Huy"
+                nzPopconfirmTitle="Bạn có chắc muốn xóa khách hàng này?"
+                nzOkText="Xóa"
+                nzCancelText="Hủy"
                 nz-tooltip
-                nzTooltipTitle="Xoa"
+                nzTooltipTitle="Xóa"
                 (nzOnConfirm)="deleteCustomer(customer)"
               >
                 <span nz-icon nzType="delete"></span>
@@ -104,8 +104,8 @@
 <nz-modal
   [(nzVisible)]="formModalVisible"
   [nzTitle]="formModalTitle"
-  [nzOkText]="modalMode === 'create' ? 'Them moi' : 'Luu lai'"
-  nzCancelText="Huy"
+  [nzOkText]="modalMode === 'create' ? 'Thêm mới' : 'Lưu lại'"
+  nzCancelText="Hủy bỏ"
   [nzOkLoading]="saving"
   (nzOnCancel)="formModalVisible = false"
   (nzOnOk)="submitCustomer()"
@@ -122,63 +122,60 @@
       }
 
       <nz-form-item>
-        <nz-form-label nzRequired>Ma khach hang</nz-form-label>
+        <nz-form-label nzRequired>Mã khách hàng</nz-form-label>
         <nz-form-control [nzErrorTip]="codeErrorTpl">
           <input nz-input formControlName="code" placeholder="VD: KH001" />
           <ng-template #codeErrorTpl let-control>
             @if (control.hasError('required')) {
-              Vui long nhap ma khach hang
+              Vui lòng nhập mã khách hàng
             }
             @if (control.hasError('maxlength')) {
-              Ma khach hang toi da 20 ky tu
+              Mã khách hàng tối đa 20 ký tự
             }
             @if (control.hasError('duplicatedCode')) {
-              Ma khach hang da ton tai
+              Mã khách hàng đã tồn tại
             }
           </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label nzRequired>Ten khach hang</nz-form-label>
+        <nz-form-label nzRequired>Tên khách hàng</nz-form-label>
         <nz-form-control [nzErrorTip]="nameErrorTpl">
-          <input nz-input formControlName="name" placeholder="Nhap ten khach hang" />
+          <input nz-input formControlName="name" placeholder="Nhập tên khách hàng" />
           <ng-template #nameErrorTpl let-control>
             @if (control.hasError('required')) {
-              Vui long nhap ten khach hang
+              Vui lòng nhập tên khách hàng
             }
             @if (control.hasError('maxlength')) {
-              Ten khach hang toi da 80 ky tu
+              Tên khách hàng tối đa 80 ký tự
             }
           </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label nzRequired>Tuoi</nz-form-label>
+        <nz-form-label nzRequired>Tuổi</nz-form-label>
         <nz-form-control [nzErrorTip]="ageErrorTpl">
-          <nz-input-number formControlName="age" [nzMin]="1" [nzMax]="120"></nz-input-number>
+          <input nz-input type="number" formControlName="age" placeholder="Nhập tuổi" />
           <ng-template #ageErrorTpl let-control>
             @if (control.hasError('required')) {
-              Vui long nhap tuoi
-            }
-            @if (control.hasError('min') || control.hasError('max')) {
-              Tuoi phai nam trong khoang 1 den 120
+              Vui lòng nhập tuổi
             }
           </ng-template>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label nzRequired>Dia chi</nz-form-label>
+        <nz-form-label nzRequired>Địa chỉ</nz-form-label>
         <nz-form-control [nzErrorTip]="addressErrorTpl">
-          <textarea nz-input formControlName="address" rows="3" placeholder="Nhap dia chi"></textarea>
+          <textarea nz-input formControlName="address" rows="3" placeholder="Nhập địa chỉ"></textarea>
           <ng-template #addressErrorTpl let-control>
             @if (control.hasError('required')) {
-              Vui long nhap dia chi
+              Vui lòng nhập địa chỉ
             }
             @if (control.hasError('maxlength')) {
-              Dia chi toi da 180 ky tu
+              Địa chỉ tối đa 180 ký tự
             }
           </ng-template>
         </nz-form-control>
@@ -189,7 +186,7 @@
 
 <nz-modal
   [(nzVisible)]="detailModalVisible"
-  nzTitle="Thong tin khach hang"
+  nzTitle="Thông tin khách hàng"
   [nzFooter]="null"
   (nzOnCancel)="closeDetailModal()"
 >
@@ -197,10 +194,10 @@
     @if (selectedCustomer) {
       <nz-descriptions nzBordered [nzColumn]="1" nzSize="middle">
         <nz-descriptions-item nzTitle="ID">{{ selectedCustomer.id }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Ma khach hang">{{ selectedCustomer.code }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Ten khach hang">{{ selectedCustomer.name }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Tuoi">{{ selectedCustomer.age }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Dia chi">{{ selectedCustomer.address }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Mã khách hàng">{{ selectedCustomer.code }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="ên khách hàng">{{ selectedCustomer.name }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Tuổi">{{ selectedCustomer.age }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Địa chỉ">{{ selectedCustomer.address }}</nz-descriptions-item>
       </nz-descriptions>
     }
   </ng-container>

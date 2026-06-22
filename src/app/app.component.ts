@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
   });
 
   get formModalTitle(): string {
-    return this.modalMode === 'create' ? 'Them khach hang' : 'Sua thong tin khach hang';
+    return this.modalMode === 'create' ? 'Thêm khách hàng' : 'Sửa thông tin khách hàng';
   }
 
   ngOnInit(): void {
@@ -92,7 +92,7 @@ export class AppComponent implements OnInit {
           this.total = page.total;
         },
         error: () => {
-          this.message.error('Khong the tai danh sach khach hang');
+          this.message.error('Không thể tải danh sách khách hàng');
         }
       });
   }
@@ -156,12 +156,12 @@ export class AppComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.message.success(this.editingCustomer ? 'Da cap nhat khach hang' : 'Da them khach hang');
+          this.message.success(this.editingCustomer ? 'Đã cập nhật khách hàng' : 'Đã thêm khách hàng');
           this.formModalVisible = false;
           this.loadPage();
         },
         error: () => {
-          this.message.error('Khong the luu thong tin khach hang');
+          this.message.error('Không thể lưu thông tin khách hàng');
         }
       });
   }
@@ -169,11 +169,11 @@ export class AppComponent implements OnInit {
   deleteCustomer(customer: Customer): void {
     this.customerService.deleteCustomer(customer.id).subscribe({
       next: () => {
-        this.message.success('Da xoa khach hang');
+        this.message.success('Đã xóa khách hàng');
         this.loadPage();
       },
       error: () => {
-        this.message.error('Khong the xoa khach hang');
+        this.message.error('Không thể xóa khách hàng');
       }
     });
   }
