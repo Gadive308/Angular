@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "code": "KH001",
+    "name": "Nguyen Van A",
+    "age": 28,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 2,
+    "code": "KH002",
+    "name": "Tran Thi B",
+    "age": 34,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 3,
+    "code": "KH003",
+    "name": "Le Minh C",
+    "age": 23,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 4,
+    "code": "KH004",
+    "name": "Tran Thi B",
+    "age": 41,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 5,
+    "code": "KH005",
+    "name": "Tran Thi B",
+    "age": 30,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 6,
+    "code": "KH006",
+    "name": "Tran Thi B",
+    "age": 37,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 7,
+    "code": "KH007",
+    "name": "Tran Thi B",
+    "age": 26,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 8,
+    "code": "KH008",
+    "name": "Tran Thi B",
+    "age": 45,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 9,
+    "code": "KH009",
+    "name": "Tran Thi B",
+    "age": 22,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 10,
+    "code": "KH010",
+    "name": "Tran Thi B",
+    "age": 32,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 11,
+    "code": "KH011",
+    "name": "Tran Thi B",
+    "age": 39,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  },
+  {
+    "id": 12,
+    "code": "KH012",
+    "name": "Tran Thi B",
+    "age": 29,
+    "address": "25 Tô Vĩnh Diện, Thanh Xuân, Hà Nội"
+  }
+]

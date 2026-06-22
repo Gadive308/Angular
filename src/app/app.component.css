@@ -1,0 +1,116 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #172033;
+  background: #f4f7f9;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #0f766e;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  color: #101828;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  color: #172033;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.list-panel {
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(16, 24, 40, 0.06);
+}
+
+.panel-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.panel-toolbar p {
+  margin-top: 4px;
+  color: #667085;
+}
+
+.customer-name {
+  color: #101828;
+  font-weight: 600;
+}
+
+nz-input-number {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    width: min(100% - 20px, 1180px);
+    padding: 20px 0;
+  }
+
+  .page-header,
+  .panel-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .header-actions {
+    justify-content: stretch;
+  }
+
+  .header-actions button {
+    flex: 1 1 160px;
+  }
+
+  .list-panel {
+    padding: 14px;
+  }
+}

@@ -1,0 +1,207 @@
+<main class="app-shell">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Bai tap Angular</p>
+      <h1>Quan ly khach hang</h1>
+    </div>
+
+    <div class="header-actions">
+      <button nz-button nzType="default" (click)="reloadCustomers()" [nzLoading]="loading">
+        <span nz-icon nzType="reload"></span>
+        Tai lai
+      </button>
+      <button nz-button nzType="primary" (click)="openCreateModal()">
+        <span nz-icon nzType="plus"></span>
+        Them khach hang
+      </button>
+    </div>
+  </section>
+
+  <section class="list-panel">
+    <div class="panel-toolbar">
+      <div>
+        <h2>Danh sach khach hang</h2>
+        <p>{{ total }} khach hang trong danh sach</p>
+      </div>
+      <nz-tag nzColor="processing">Trang {{ pageIndex }}</nz-tag>
+    </div>
+
+    <nz-table
+      [nzData]="customers"
+      [nzFrontPagination]="false"
+      [nzLoading]="loading"
+      [nzPageIndex]="pageIndex"
+      [nzPageSize]="pageSize"
+      [nzTotal]="total"
+      [nzShowSizeChanger]="true"
+      [nzPageSizeOptions]="[5, 10, 20]"
+      [nzScroll]="{ x: '820px' }"
+      (nzPageIndexChange)="onPageIndexChange($event)"
+      (nzPageSizeChange)="onPageSizeChange($event)"
+    >
+      <thead>
+        <tr>
+          <th nzWidth="76px">ID</th>
+          <th nzWidth="150px">Ma khach hang</th>
+          <th>Ten khach hang</th>
+          <th nzWidth="96px">Tuoi</th>
+          <th>Dia chi</th>
+          <th nzWidth="160px" nzAlign="center">Thao tac</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (customer of customers; track customer.id) {
+          <tr>
+            <td>{{ customer.id }}</td>
+            <td><nz-tag nzColor="success">{{ customer.code }}</nz-tag></td>
+            <td class="customer-name">{{ customer.name }}</td>
+            <td>{{ customer.age }}</td>
+            <td>{{ customer.address }}</td>
+            <td nzAlign="center">
+              <button
+                nz-button
+                nzType="text"
+                nzShape="circle"
+                nz-tooltip
+                nzTooltipTitle="Xem chi tiet"
+                (click)="openDetailModal(customer)"
+              >
+                <span nz-icon nzType="eye"></span>
+              </button>
+              <button
+                nz-button
+                nzType="text"
+                nzShape="circle"
+                nz-tooltip
+                nzTooltipTitle="Sua"
+                (click)="openEditModal(customer)"
+              >
+                <span nz-icon nzType="edit"></span>
+              </button>
+              <button
+                nz-button
+                nzType="text"
+                nzDanger
+                nzShape="circle"
+                nz-popconfirm
+                nzPopconfirmTitle="Ban co chac muon xoa khach hang nay?"
+                nzOkText="Xoa"
+                nzCancelText="Huy"
+                nz-tooltip
+                nzTooltipTitle="Xoa"
+                (nzOnConfirm)="deleteCustomer(customer)"
+              >
+                <span nz-icon nzType="delete"></span>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>
+  </section>
+</main>
+
+<nz-modal
+  [(nzVisible)]="formModalVisible"
+  [nzTitle]="formModalTitle"
+  [nzOkText]="modalMode === 'create' ? 'Them moi' : 'Luu lai'"
+  nzCancelText="Huy"
+  [nzOkLoading]="saving"
+  (nzOnCancel)="formModalVisible = false"
+  (nzOnOk)="submitCustomer()"
+>
+  <ng-container *nzModalContent>
+    <form nz-form nzLayout="vertical" [formGroup]="customerForm">
+      @if (editingCustomer) {
+        <nz-form-item>
+          <nz-form-label>ID</nz-form-label>
+          <nz-form-control>
+            <input nz-input [value]="editingCustomer.id" disabled />
+          </nz-form-control>
+        </nz-form-item>
+      }
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Ma khach hang</nz-form-label>
+        <nz-form-control [nzErrorTip]="codeErrorTpl">
+          <input nz-input formControlName="code" placeholder="VD: KH001" />
+          <ng-template #codeErrorTpl let-control>
+            @if (control.hasError('required')) {
+              Vui long nhap ma khach hang
+            }
+            @if (control.hasError('maxlength')) {
+              Ma khach hang toi da 20 ky tu
+            }
+            @if (control.hasError('duplicatedCode')) {
+              Ma khach hang da ton tai
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Ten khach hang</nz-form-label>
+        <nz-form-control [nzErrorTip]="nameErrorTpl">
+          <input nz-input formControlName="name" placeholder="Nhap ten khach hang" />
+          <ng-template #nameErrorTpl let-control>
+            @if (control.hasError('required')) {
+              Vui long nhap ten khach hang
+            }
+            @if (control.hasError('maxlength')) {
+              Ten khach hang toi da 80 ky tu
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Tuoi</nz-form-label>
+        <nz-form-control [nzErrorTip]="ageErrorTpl">
+          <nz-input-number formControlName="age" [nzMin]="1" [nzMax]="120"></nz-input-number>
+          <ng-template #ageErrorTpl let-control>
+            @if (control.hasError('required')) {
+              Vui long nhap tuoi
+            }
+            @if (control.hasError('min') || control.hasError('max')) {
+              Tuoi phai nam trong khoang 1 den 120
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Dia chi</nz-form-label>
+        <nz-form-control [nzErrorTip]="addressErrorTpl">
+          <textarea nz-input formControlName="address" rows="3" placeholder="Nhap dia chi"></textarea>
+          <ng-template #addressErrorTpl let-control>
+            @if (control.hasError('required')) {
+              Vui long nhap dia chi
+            }
+            @if (control.hasError('maxlength')) {
+              Dia chi toi da 180 ky tu
+            }
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
+
+<nz-modal
+  [(nzVisible)]="detailModalVisible"
+  nzTitle="Thong tin khach hang"
+  [nzFooter]="null"
+  (nzOnCancel)="closeDetailModal()"
+>
+  <ng-container *nzModalContent>
+    @if (selectedCustomer) {
+      <nz-descriptions nzBordered [nzColumn]="1" nzSize="middle">
+        <nz-descriptions-item nzTitle="ID">{{ selectedCustomer.id }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Ma khach hang">{{ selectedCustomer.code }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Ten khach hang">{{ selectedCustomer.name }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Tuoi">{{ selectedCustomer.age }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Dia chi">{{ selectedCustomer.address }}</nz-descriptions-item>
+      </nz-descriptions>
+    }
+  </ng-container>
+</nz-modal>
